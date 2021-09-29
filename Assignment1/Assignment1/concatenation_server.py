@@ -33,11 +33,12 @@ tcpServer.bind(("127.0.0.1", 8000))
 tcpServer.listen()
 # TODO: Call accept to wait for a connection
 (comm_socket, client_addr) = tcpServer.accept()
-
+buff=[]
 # Repeat NUM_TRANSMISSIONS times
 for i in range(NUM_TRANSMISSIONS):
   # TODO: receive data over the socket returned by the accept() method
   outputData = comm_socket.recv(4096)
+  buff.append(outputData)
   # TODO: print out the received data for debugging
   print(outputData)
 
@@ -45,7 +46,8 @@ for i in range(NUM_TRANSMISSIONS):
   new_str = rand_str()
 
   # TODO: Append the string to the buffer received
-  buff = outputData + new_str
+  # buff = outputData + new_str
+  buff.append(new_str)
 
   # TODO: Send the new string back to the client
   comm_socket.send(buff)

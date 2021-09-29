@@ -20,7 +20,7 @@ def rand_str():
 
 NUM_TRANSMISSIONS=10
 def client_socket_setup(server_port):
-  
+
 
     # TODO: Create and return the socket for the client
   tcpClient = socket(AF_INET, SOCK_STREAM)
@@ -47,7 +47,7 @@ def transmit_using_socket(client_socket):
 
 
       # TODO: Receive concatenated data back from server as a byte array
-      str_received =client_socket.recv(4096)
+      str_received = client_socket.recv(4096)
 
 
       # TODO: Print out concatenated data for debugging
