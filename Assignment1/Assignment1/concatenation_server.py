@@ -1,6 +1,7 @@
 # TODO: import socket library
 import sys
 import random
+from socket import * 
 import string
 RAND_STR_LEN = 10
 
@@ -23,23 +24,31 @@ if len(sys.argv) == 3:
 server_port=int(sys.argv[1])                       
 
 # TODO: Create a socket for the server on localhost
+tcpServer = socket(AF_INET, SOCK_STREAM)
 
 # TODO: Bind it to a specific server port supplied on the command line
+tcpServer.bind(("127.0.0.1", 8000))
 
 # TODO: Put server's socket in LISTEN mode
-
+tcpServer.listen()
 # TODO: Call accept to wait for a connection
+(comm_socket, client_addr) = tcpServer.accept()
 
 # Repeat NUM_TRANSMISSIONS times
 for i in range(NUM_TRANSMISSIONS):
   # TODO: receive data over the socket returned by the accept() method
-
+  outputData = comm_socket.recv(4096)
   # TODO: print out the received data for debugging
+  print(outputData)
 
   # TODO: Generate a new string of length 10 using rand_str
+  new_str = rand_str()
 
   # TODO: Append the string to the buffer received
+  buff = outputData + new_str
 
   # TODO: Send the new string back to the client
+  comm_socket.send(buff)
 
 # TODO: Close all sockets that were created
+comm_socket.close()
