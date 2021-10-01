@@ -20,12 +20,12 @@ def rand_str():
 
 NUM_TRANSMISSIONS=10
 def client_socket_setup(server_port):
-
+  
 
     # TODO: Create and return the socket for the client
   tcpClient = socket(AF_INET, SOCK_STREAM)
     # TODO:  Connect this socket to the server
-  tcpClient.connect(("127.0.0.1", 8000))
+  tcpClient.connect(("127.0.0.1", server_port))
   return tcpClient
 
 
@@ -34,28 +34,28 @@ def transmit_using_socket(client_socket):
     for i in range(NUM_TRANSMISSIONS):
 
       # TODO: Generate a random string of length 10 using rand_str function
-      random_string = rand_str()
+      random_string = rand_str().strip()
 
     
 
       # TODO: Send random string to the server
-      client_socket.send(random_string)
+      client_socket.send(random_string.encode())
 
 
       # TODO: Print data for debugging
-      print(random_string)
+      print("sent:",random_string)
 
 
       # TODO: Receive concatenated data back from server as a byte array
-      str_received = client_socket.recv(4096)
+      str_received =client_socket.recv(4096).decode().strip()
 
 
       # TODO: Print out concatenated data for debugging
-      print(str_received)
+      print("received:",str_received, "\n")
 
 
       # TODO: Close socket
-      client_socket.close()
+    client_socket.close()
 
 
 if __name__ == "__main__":

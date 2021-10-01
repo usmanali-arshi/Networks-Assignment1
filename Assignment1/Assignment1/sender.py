@@ -3,7 +3,7 @@ import os
 import random
 import string
 #TODO: import socket libraries
-
+from socket import * 
 NUM_TRANSMISSIONS=200
 
 if (len(sys.argv) < 3):
@@ -19,8 +19,10 @@ testcases = test_file.readlines()
 
 
 # TODO: Create a socket for the sender
+sender_sock = socket(AF_INET, SOCK_STREAM)
 
 # TODO: Connect sender to the relay at the relay_port
+sender_sock.connect(("127.0.0.1", relay_port))
 
 # Wait until the receiver has also connected to the relay
 input("Press enter to start transmissions")
@@ -31,8 +33,11 @@ for i in range(NUM_TRANSMISSIONS):
   data=testcases[i]
 
   # TODO: Send this to the relay server for it to relay to the receiver
+  sender_sock.send(data.strip().encode())
 
   # print debugging information
-  print("sent: " + data)
+  print("sent:")
+  print(data)
 
 # TODO: Close any open sockets
+sender_sock.close()
